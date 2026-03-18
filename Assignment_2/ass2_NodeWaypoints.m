@@ -37,9 +37,7 @@ pause(1);
 k_wp = 1;              
 last_wp = false;
 
-% gestisce un waypoint alla volta
 while ~last_wp
-    % richiesta waypoint a python
     wpReqMsg.data = int32(k_wp);
     send(wpReqPub, wpReqMsg);
     wpMsg = receive(wpSub);      
@@ -48,10 +46,9 @@ while ~last_wp
     qT = wpMsg.pose.orientation;
     thetaT = atan2(2*qT.w*qT.z, 1 - 2*qT.z*qT.z);  % from quaternions to radiants
 
-    goal   = false;    % posizione raggiunta
-    goal_angle = false;   % orientamento raggiunto
+    goal   = false;   
+    goal_angle = false;  
 
-    % controllo movimento per arrivare a goal
     % P controller
     while ~(goal && goal_angle)
         t_loop = tic;
