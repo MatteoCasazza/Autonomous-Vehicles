@@ -2,8 +2,6 @@ clear
 clc
 close all
 
-% VARIAZIONE DEL ASS2_ORIENTATION MA CON CONTROLLO SU ORIENTAMENTO FINALE
-% SOLO PRIMA DI 1 METRO
 %-->mostly straight trajectory and distance covered lower
 % trade off
 %  least mechanically stressed and the smoothest motion profile
