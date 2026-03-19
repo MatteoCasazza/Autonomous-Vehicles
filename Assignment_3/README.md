@@ -56,10 +56,10 @@ $$y_s = R \cdot \sin(\theta + \theta_{odom}) + y_{odom}$$
 ### 4. Feedback Control Strategy
 The robot remains in rotation until the target criteria are met: $0.75 \cdot r_{max} \le r \le 1.25 \cdot r_{max}$.
 Once locked, a **Proportional (P) Controller** computes:
-* **Linear Velocity ($v$):** $v = k_\rho \cdot \text{distance\_error}$
-* **Angular Velocity ($\omega$):** $\omega = k_\alpha \cdot \text{angle\_error}$
+* **Linear Velocity (v):** `v = k_rho * distance_error`
+* **Angular Velocity (ω):** `ω = k_alpha * angle_error`
 
-**Gains:** $k_\rho = 0.5 \, s^{-1}$, $k_\alpha = 0.3 \, s^{-1}$.
+**Gains:** `k_rho = 0.5 s^-1`, `k_alpha = 0.3 s^-1`
 
 ---
 
