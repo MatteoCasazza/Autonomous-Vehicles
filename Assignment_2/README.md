@@ -1,12 +1,12 @@
 # Assignment 2 – Feedback Control and Waypoints Navigation
 
-## Overview
+## 📌 Overview
 
 This assignment focuses on implementing feedback controllers for the TurtleBot3 robot in a simulated environment (TurtleBot3 Empty World). The objective is to navigate the robot through a sequence of predefined waypoints while respecting physical constraints on velocity and orientation. Multiple control strategies are developed and compared for efficiency, smoothness, and precision.
 
 ---
 
-## Problem Statement
+## 🎯 Problem Statement
 
 The robot must reach a series of waypoints defined by coordinates `(x, y)` and orientation `θ`:
 
@@ -35,7 +35,7 @@ Waypoints can be selected either from a predefined array in the source code or t
 
 ---
 
-## Methodology
+## ⚙️ Methodology
 
 The workflow consists of the following main steps:
 
@@ -72,7 +72,7 @@ The workflow consists of the following main steps:
 
 ---
 
-## Results
+## 📊 Results
 
 | Algorithm                                    | Time [s] | Distance [m] |
 |---------------------------------------------|----------|--------------|
@@ -91,4 +91,9 @@ Key observations:
 
 ---
 
-This README provides a comprehensive overview of the methodology, control strategies, and results for Assignment 2. The **code structure and usage instructions** are detailed in the next section.
+## 🧩 Code Structure
+
+---
+
+## 📊 Notes
+The ROS2 bag file may not be included due to size constraints but can be provided upon request.
