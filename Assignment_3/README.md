@@ -74,21 +74,15 @@ Once locked, a **Proportional (P) Controller** computes:
 
 ## 🧩 Code Structure
 
-        MATLAB Controller
-               |
-       /camera/image_raw (RGB)
-       /scan (LiDAR)
-       /odom
-               v
-        Target Detection
-        (Color + LiDAR fusion)
-               |
-               v
-      Feedback Controller
-  (Compute v, ω using proportional law)
-               |
-               v
-         /cmd_vel → TurtleBot3
+[Camera Images]                 [LiDAR Scan] [Odometry]
+       ↓                                    ↓
+   HSV Filter → Centroid Extraction → Target Selection
+                               ↓
+                     Position & Size Estimation
+                               ↓
+                       Feedback Controller
+                               ↓
+                          /cmd_vel → TurtleBot3
 
 ---
 
