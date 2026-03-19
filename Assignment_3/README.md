@@ -92,5 +92,9 @@ Once locked, a **Proportional (P) Controller** computes:
 
 ---
 
+## 📊 Notes
 
+* The environment contains distractor objects, highlighting the necessity of sensor fusion.
+* Simulation ensures accurate timing of sensor acquisition and control command publication.
+* The system successfully demonstrates autonomous target selection and navigation using integrated perception and control.
 
