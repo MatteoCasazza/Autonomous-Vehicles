@@ -74,15 +74,15 @@ Once locked, a **Proportional (P) Controller** computes:
 
 ## 🧩 Code Structure
 
-[Camera Images]                 [LiDAR Scan] [Odometry]
-       ↓                                    ↓
-   HSV Filter → Centroid Extraction → Target Selection
-                               ↓
-                     Position & Size Estimation
-                               ↓
-                       Feedback Controller
-                               ↓
-                          /cmd_vel → TurtleBot3
+[Camera Images] [LiDAR Scan] [Odometry]
+↓ ↓ ↓
+HSV Filter → Centroid Extraction → Target Selection
+↓
+Position & Size Estimation
+↓
+Feedback Controller
+↓
+/cmd_vel → TurtleBot3
 
 ---
 
