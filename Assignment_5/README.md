@@ -1,6 +1,6 @@
 # Assignment 5 – Parking Gate Control FSM
 
-## Problem Statement
+## 🎯 Problem Statement
 
 The aim of this assignment is to analyze a provided **Vehicle Finite State Machine (FSM)** and improve it by designing a **Parking Gate Control FSM**.  
 
@@ -14,7 +14,7 @@ The integrated FSM model is simulated for 100 seconds to evaluate the behavior o
 
 ---
 
-## Methodology
+## ⚙️ Methodology
 
 All work was carried out in **Simulink**, using **Stateflow** to design and test the state machine.
 
@@ -74,7 +74,7 @@ To improve the model, a **Gate Control FSM** was added:
 
 ---
 
-## Results
+## 📊 Results
 
 Simulations of 100 s show vehicle and gate interactions:
 
@@ -101,7 +101,7 @@ Second vehicles follow the same behavior, demonstrating correct vehicle-gate syn
 
 ---
 
-## Conclusion
+## ✅ Conclusion
 
 - The integrated FSM **successfully models vehicle and gate interaction** with physical constraints.  
 - The gate motion is realistic, continuous, and synchronized with vehicle arrival.  
