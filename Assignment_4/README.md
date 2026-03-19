@@ -107,15 +107,39 @@ h(q') = |x_{\text{goal}}-x| + |y_{\text{goal}}-y| + (\sqrt{2}-2) \cdot \min(|x_{
 ---
 
 ## 🧩 Code Structure
+## 🛠 Project Structure
 
-- **Map Processing**: load image, resize to 30×30, apply binary threshold.  
-- **Edge Matrix G**: defines connectivity and costs.  
-- **Dijkstra V1**: horizontal/vertical moves, unit step cost.  
-- **Dijkstra V2**: adds diagonal moves, step cost √2.  
-- **A\***: adds heuristic cost-to-go, evaluates nodes using chosen heuristic.  
-- **Path Reconstruction**: uses parent vector to backtrack optimal path.  
-- **Visualization**: MATLAB plots maps, explored nodes, and final trajectory.  
+The project contains two main MATLAB scripts, each serving a specific role in the development and evaluation of pathfinding algorithms.
 
+### 📄 `main_base.m`
+**Role:** Basic implementation of Dijkstra's algorithm.
+* **Algorithm:** Implements a standard version of Dijkstra.
+* **Movement:** Considers only **horizontal and vertical** movements on the grid.
+* **Purpose:** Serves as a simple, step-by-step introduction to pathfinding, focusing on distance calculation and visualization.
+* **Code Structure:** Linear and repetitive; each map is handled separately with dedicated blocks for initialization, edge creation, execution, and plotting.
+
+---
+
+### 🚀 `main_improve.m`
+**Role:** Generalized and optimized pathfinding framework.
+* **Algorithms & Heuristics:** Supports multiple configurations using a selection key:
+  
+| Key | Algorithm / Heuristic | Description |
+| :--- | :--- | :--- |
+| **v** | **Dijkstra** | Classic shortest path algorithm. |
+| **E** | **A* (Euclidean)** | Uses straight-line distance heuristic. |
+| **M** | **A* (Manhattan)** | Uses L1 distance (ideal for grid movement). |
+| **C** | **A* (Chebyshev)** | Ideal for 8-connectivity grids. |
+| **D** | **A* (Diagonal)** | Optimized for horizontal, vertical, and diagonal steps. |
+
+* **Advanced Movement:** Handles horizontal, vertical, and **diagonal** movements with calibrated step costs (e.g., $1$ for straight, $\sqrt{2}$ for diagonal).
+* **Modular Design:** Uses automated loops to process multiple maps and heuristics, significantly reducing code redundancy.
+* **Performance Metrics:** For each run, the script outputs:
+  * ⏱ **Computation Time**
+  * 📏 **Travelled Distance**
+  * 🔍 **Number of Explored Nodes**
+* **Visualization:** Provides advanced plotting of the final shortest path and the distribution of explored nodes.
+  
 ---
 
 ## 🧪 Notes
