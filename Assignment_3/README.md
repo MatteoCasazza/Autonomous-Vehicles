@@ -74,12 +74,23 @@ Once locked, a **Proportional (P) Controller** computes:
 
 ## 🧩 Code Structure
 
-```mermaid
-graph TD
-    A[MATLAB/Simulink Controller] --> B{Sensor Subscription}
-    B --> C[/camera/image_raw]
-    B --> D[/scan - LiDAR]
-    B --> E[/odom]
-    C & D & E --> F[Target Detection & Fusion]
-    F --> G[Feedback Control Law]
-    G --> H[/cmd_vel → TurtleBot3]
+        MATLAB Controller
+               |
+       /camera/image_raw (RGB)
+       /scan (LiDAR)
+       /odom
+               v
+        Target Detection
+        (Color + LiDAR fusion)
+               |
+               v
+      Feedback Controller
+  (Compute v, ω using proportional law)
+               |
+               v
+         /cmd_vel → TurtleBot3
+
+---
+
+
+
