@@ -107,7 +107,6 @@ h(q') = |x_{\text{goal}}-x| + |y_{\text{goal}}-y| + (\sqrt{2}-2) \cdot \min(|x_{
 ---
 
 ## 🧩 Code Structure
-## 🛠 Project Structure
 
 The project contains two main MATLAB scripts, each serving a specific role in the development and evaluation of pathfinding algorithms.
 
