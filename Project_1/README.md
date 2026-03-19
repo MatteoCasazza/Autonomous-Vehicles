@@ -1,1 +1,156 @@
+# Project 1 – RRT-Based Path Planning
 
+## 6.1 Problem Statement
+
+The aim of this project is to implement a **Rapidly-exploring Random Trees (RRT) planner** on the maps provided in Assignment 4 (maps 4.1 – 4.5).  
+
+RRT is a **sampling-based, single-query planning algorithm** that explores the environment to build a tree and detect a feasible trajectory to reach a desired end point, without optimizing it.  
+
+In addition to the basic RRT, this project also implements:
+
+- **RRT-Connect:** Uses two trees to connect start and goal efficiently.  
+- **RRT\*:** Optimized version that considers the cost to reach each node.  
+
+The results are compared with the **A\*** algorithm in terms of:
+
+- Computation time  
+- Traveled distance  
+- Number of explored nodes  
+
+The maps are of size **30 × 30**, imposing constraints on the algorithm due to resolution.
+
+---
+
+## 6.2 Methodology
+
+### 6.2.1 Basic RRT Algorithm
+
+1. **Tree Initialization:**  
+   - Input image is processed to detect free (white) and obstacle (black) pixels.  
+   - Tree `T` is initialized with the start point as its root.
+
+2. **Sampling Loop:**  
+   - Random configuration `x_rand` is sampled in the free space (occasionally set equal to the goal for faster convergence).  
+   - Nearest node `x_near` in `T` is found.  
+   - Compute direction vector and define `x_new = x_near + round(δq · [î, ĵ])`, with δq = √2.  
+   - If `x_new` is free, add it to `T` with its parent index.
+
+3. **Path Construction:**  
+   - Starting from the goal, traverse parent nodes backwards until the start node is reached.  
+
+**Iteration limit:** 5000; if exceeded, a feasible path is assumed not possible.
+
+---
+
+### 6.2.2 RRT-Connect Algorithm
+
+- Uses **two trees**, `T_a` rooted at start and `T_b` at goal.  
+- Each iteration alternates roles between **exploration** and **connection**.  
+- `T_a` expands randomly, `T_b` attempts to connect to `x_new`.  
+- Path is constructed by combining nodes from both trees at the connection point.
+
+---
+
+### 6.2.3 RRT\* Algorithm
+
+- Considers **cost to reach nodes** for optimized trajectories.  
+- A **cost matrix C** is initialized at the start.  
+- When adding `x_new`, its parent is chosen as the node among neighbors minimizing `C(q′) = C(q) + C(q,q′)`.  
+- Rewiring step: check if `x_new` improves cost for previously sampled neighbors.  
+- After tree completion, matrices are sorted by increasing cost to ensure optimality.  
+- Trajectory is then traced similarly to basic RRT.
+
+---
+
+## 6.3 Results
+
+The three algorithms were tested on all maps. Due to stochastic sampling, multiple runs give different trajectories.
+
+### 6.3.1 General Observations
+
+- **Basic RRT:**  
+  - Longest and most irregular paths  
+  - Fast, simple exploration, stochastic nature introduces variability  
+
+- **RRT-Connect:**  
+  - Efficient in connecting start and goal  
+  - Shorter paths, fewer explored nodes, generally faster computation  
+
+- **RRT\*:**  
+  - Optimized path lengths  
+  - Higher computational cost  
+  - Converges to near-optimal solution with more iterations  
+
+---
+
+### 6.3.2 Sample Map Results
+
+| Map | Algorithm | Time [s] | Distance [m] | Explored Nodes |
+|-----|-----------|-----------|---------------|----------------|
+| Test Map 1 | Basic RRT | 0.1710 | 44.870 | 135 |
+| Test Map 1 | RRT-Connect | 0.0884 | 36.870 | 31 |
+| Test Map 1 | RRT* | 0.2462 | 37.698 | 351 |
+| First Map | Basic RRT | 0.1370 | 52.799 | 194 |
+| First Map | RRT-Connect | 0.0768 | 51.971 | 106 |
+| First Map | RRT* | 0.1909 | 49.042 | 158 |
+| Second Map | Basic RRT | 0.1156 | 45.113 | 183 |
+| Second Map | RRT-Connect | 0.0526 | 48.770 | 58 |
+| Second Map | RRT* | 0.1301 | 42.527 | 167 |
+
+> **Note:** Tables for Third and Fourth maps follow similar trends:  
+> - RRT-Connect gives shorter paths for simple start-goal connections  
+> - RRT* reduces path length but increases computational cost  
+> - Basic RRT paths are variable and jagged due to stochastic sampling
+
+---
+
+### 6.3.3 Map-Specific Observations
+
+- **First Map:**  
+  - Random sampling sometimes leaves zones unexplored, particularly around obstacles.  
+  - RRT-Connect avoids these zones with straight connection lines.  
+  - RRT* optimality depends on the number of sampled nodes.  
+
+- **Second Map:**  
+  - Basic RRT produces different paths in repeated runs.  
+  - RRT-Connect efficiently overcomes star-shaped obstacles.  
+  - RRT* gives shortest paths but explores more nodes.
+
+- **Third Map:**  
+  - Horizontal obstacles require many sampled points.  
+  - RRT-Connect trajectories are longest due to repeated obstacle hits.  
+  - RRT* achieves shortest paths at higher computational cost.
+
+- **Fourth Map:**  
+  - Optimal paths often require high iteration counts in RRT*.  
+  - RRT-connect gives two distinct trajectories with straight segments.  
+
+---
+
+### 6.3.4 Algorithm Comparison
+
+| Algorithm | Pros | Cons |
+|-----------|------|------|
+| Basic RRT | Simple, fast, flexible | Long, jagged paths, stochastic variability |
+| RRT-Connect | Fast, fewer explored nodes | Paths may be long if obstacles encountered |
+| RRT* | Optimized trajectories | High computational cost, requires many iterations |
+
+**Insights:**
+
+- Stochastic nature affects results significantly.  
+- Grid-based methods guarantee optimality but require prior knowledge of the full map.  
+- Sample-based RRT methods are more flexible in unknown or complex environments.
+
+---
+
+## 6.4 Conclusions
+
+- **Feasible trajectories** were successfully computed for all maps using RRT, RRT-Connect, and RRT*.  
+- **Efficiency depends** on map geometry and stochastic exploration.  
+- **Basic RRT** is fast but produces irregular paths.  
+- **RRT-Connect** efficiently connects start and goal with fewer explored nodes.  
+- **RRT\*** provides trajectories close to optimal at a higher computational cost.  
+- **Choice of planner** depends on problem requirements:  
+  - Rapid feasible solution → Basic RRT / RRT-Connect  
+  - Optimal path → RRT* with higher computation  
+- Sample-based planners excel in **complex geometries**, but grid-based planners remain better when **optimality and map knowledge** are priorities.
