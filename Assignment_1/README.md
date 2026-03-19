@@ -77,22 +77,60 @@ This assignment focuses on analyzing ROS2 bag data to reconstruct the trajectory
 ---
 
 ## 🧩 Code Structure
+The implementation of this assignment is organized into multiple scripts, each responsible for a specific part of the workflow, from data extraction to trajectory reconstruction and environment mapping.
 
-- `trajectory_reconstruction.m`  
-  Extracts and processes odometry data to reconstruct trajectory  
+### 1. Data Processing and Control Reconstruction
 
-- `control_estimation.m`  
-  Computes linear and angular velocities and reconstructs control inputs  
+**`ass1_def.m` (MATLAB)**  
+Main script for trajectory reconstruction and control estimation. It:  
+- Loads odometry data extracted from the ROS2 bag  
+- Computes linear and angular velocities  
+- Filters noise and smooths signals  
+- Classifies motion segments (left, right, straight)  
+- Reconstructs the control input \(u(t) = [v, \omega]\)  
+- Interpolates the control sequence to 10 Hz  
+- Publishes `/cmd_vel` commands using a ROS2 MATLAB node  
 
-- `publisher_matlab.m / publisher_python.py`  
-  Sends control commands to the robot  
+**`ass1_py.py` (Python)**  
+Python implementation of the same pipeline with improved timing consistency. It:  
+- Loads `.mat` data  
+- Computes and filters velocities  
+- Interpolates control inputs at 10 Hz  
+- Generates diagnostic plots  
+- Publishes `/cmd_vel` using ROS2 (`rclpy`)  
 
-- `simulink_model.slx`  
-  Executes control sequence with precise timing  
+### 2. LiDAR Data Extraction
 
-- `lidar_mapping.m`  
-  Reconstructs environment from LiDAR data  
+**`scan_data.m` (MATLAB)**  
+Script used to extract LiDAR and transformation data from the ROS2 bag. It reads and stores:  
+- `/scan` (LiDAR measurements)  
+- `/tf` (dynamic transforms)  
+- `/tf_static` (static transforms)  
 
+### 3. Environment Reconstruction
+
+**`scan_robot.m` (MATLAB)**  
+Script for reconstructing the environment using LiDAR data. It:  
+- Synchronizes LiDAR and odometry data  
+- Computes the LiDAR pose in the global reference frame  
+- Transforms each scan into global coordinates  
+- Aggregates all scans to generate a map of the environment  
+
+### 4. Data Files
+
+- `pos_data.mat` → robot trajectory and time vector extracted from `/odom`  
+- `velocity.mat` → interpolated control inputs \(v, \omega\) at 10 Hz  
+- `scanMsgs.mat`, `scantf.mat`, `scantf_static.mat` → LiDAR and transform data  
+
+### 5. ROS2 Bag
+
+The original dataset is provided as a ROS2 bag containing all recorded topics used in the assignment (e.g., `/odom`, `/scan`, `/tf_static`).  
+
+## How to Run
+
+1. Run `ass1_def.m` (MATLAB)  
+2. Run `ass1_py.py` (Python)  
+3. Run `scan_robot.m` (MATLAB)  
 ---
 
 ## ⚙️ Tools
