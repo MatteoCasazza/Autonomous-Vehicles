@@ -92,6 +92,77 @@ Key observations:
 ---
 
 ## 🧩 Code Structure
+The project is organized into multiple MATLAB scripts and a Python ROS2 node, each serving a specific role in robot control and waypoint management.
+
+### MATLAB Scripts
+
+1. **`ass2_classical.m`**  
+   - Implements a **classical proportional controller** for navigating through waypoints.  
+   - Main functionalities:  
+     - Subscribes to `/odom` for robot position and orientation  
+     - Publishes velocity commands to `/cmd_vel`  
+     - Computes position and heading errors to the current waypoint  
+     - Proportional control for linear (`v`) and angular (`ω`) velocities  
+     - Command saturation and stability logic (rotate first if heading error is too large)  
+     - Automatic waypoint switching once position and orientation are within tolerance  
+
+2. **`ass2_NodeWaypoints.m`**  
+   - MATLAB controller that **receives waypoints from an external Python server**.  
+   - Main functionalities:  
+     - Publishes requests on `/wp_request`  
+     - Receives the next waypoint on `/next_waypoint`  
+     - Executes proportional control similar to `ass2_classical.m`  
+     - Maintains a 10 Hz control loop  
+
+3. **`ass2_orientation.m`**  
+   - Variant of the classical controller with **orientation control applied throughout the entire path**.  
+   - Uses combined angular errors `α` (heading to waypoint) and `β` (final orientation correction) for smoother and more precise trajectories.  
+
+4. **`ass2_orientation_1M.m`**  
+   - Orientation control is applied **only in the last meter before reaching the waypoint**.  
+   - Results in straighter trajectories, shorter travel distance, and reduced mechanical stress on the robot.  
+
+5. **`ass2_stanley.m`**  
+   - Implements the **Stanley controller**, optimized for following segments between consecutive waypoints.  
+   - Main functionalities:  
+     - Computes lateral (cross-track) and heading errors relative to the line segment  
+     - Calculates steering angle `δ` and angular velocity `ω = v_ref / L * tan(δ)`  
+     - Modulates linear velocity based on alignment for stability  
+     - High precision and fastest travel time, but more aggressive angular motion  
+
+### Python Script
+
+1. **`ass2_node_py.py`**  
+   - ROS2 Python node serving as a **Waypoint Server**.  
+   - Main functionalities:  
+     - Subscribes to `/wp_request` for requests from MATLAB  
+     - Publishes the requested waypoint on `/next_waypoint` as a `PoseStamped` message  
+     - Converts yaw angles to quaternions for planar rotation  
+     - Provides logging and index validation  
+     - Keeps the node active using `rclpy.spin()`  
+
+### System Overview
+A conceptual flow of the system:
+       MATLAB Controller
+               |
+       /wp_request (Int32)
+               v
+     Python Waypoint Server
+               |
+      /next_waypoint (PoseStamped)
+               v
+MATLAB Controller → /cmd_vel → TurtleBot3
+               ^
+               |
+             /odom
+               |
+       MATLAB Controller
+
+### Notes
+- All MATLAB scripts run at a **10 Hz control loop** using `pause(max(0, dt - elapsed))`.  
+- Velocity commands are always saturated to respect robot limits (`max_v`, `max_omega`).  
+- Controllers prioritize either orientation or position depending on the variant (`ass2_orientation` vs `ass2_orientation_1M`).  
+- External waypoint server allows flexible testing and decouples waypoint generation from control logic.
 
 ---
 
