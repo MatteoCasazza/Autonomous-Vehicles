@@ -1,6 +1,6 @@
 # Project 1 – RRT-Based Path Planning
 
-## 6.1 Problem Statement
+## 🎯 Problem Statement
 
 The aim of this project is to implement a **Rapidly-exploring Random Trees (RRT) planner** on the maps provided in Assignment 4 (maps 4.1 – 4.5).  
 
@@ -21,9 +21,9 @@ The maps are of size **30 × 30**, imposing constraints on the algorithm due to 
 
 ---
 
-## 6.2 Methodology
+## ⚙️ Methodology
 
-### 6.2.1 Basic RRT Algorithm
+### Basic RRT Algorithm
 
 1. **Tree Initialization:**  
    - Input image is processed to detect free (white) and obstacle (black) pixels.  
@@ -42,7 +42,7 @@ The maps are of size **30 × 30**, imposing constraints on the algorithm due to 
 
 ---
 
-### 6.2.2 RRT-Connect Algorithm
+### RRT-Connect Algorithm
 
 - Uses **two trees**, `T_a` rooted at start and `T_b` at goal.  
 - Each iteration alternates roles between **exploration** and **connection**.  
@@ -51,7 +51,7 @@ The maps are of size **30 × 30**, imposing constraints on the algorithm due to 
 
 ---
 
-### 6.2.3 RRT\* Algorithm
+### RRT\* Algorithm
 
 - Considers **cost to reach nodes** for optimized trajectories.  
 - A **cost matrix C** is initialized at the start.  
@@ -62,7 +62,7 @@ The maps are of size **30 × 30**, imposing constraints on the algorithm due to 
 
 ---
 
-## 6.3 Results
+## 📊 Results
 
 The three algorithms were tested on all maps. Due to stochastic sampling, multiple runs give different trajectories.
 
@@ -83,7 +83,7 @@ The three algorithms were tested on all maps. Due to stochastic sampling, multip
 
 ---
 
-### 6.3.2 Sample Map Results
+### Sample Map Results
 
 | Map | Algorithm | Time [s] | Distance [m] | Explored Nodes |
 |-----|-----------|-----------|---------------|----------------|
@@ -104,7 +104,7 @@ The three algorithms were tested on all maps. Due to stochastic sampling, multip
 
 ---
 
-### 6.3.3 Map-Specific Observations
+### Map-Specific Observations
 
 - **First Map:**  
   - Random sampling sometimes leaves zones unexplored, particularly around obstacles.  
@@ -127,7 +127,7 @@ The three algorithms were tested on all maps. Due to stochastic sampling, multip
 
 ---
 
-### 6.3.4 Algorithm Comparison
+### Algorithm Comparison
 
 | Algorithm | Pros | Cons |
 |-----------|------|------|
@@ -143,7 +143,7 @@ The three algorithms were tested on all maps. Due to stochastic sampling, multip
 
 ---
 
-## 6.4 Conclusions
+## ✅ Conclusions
 
 - **Feasible trajectories** were successfully computed for all maps using RRT, RRT-Connect, and RRT*.  
 - **Efficiency depends** on map geometry and stochastic exploration.  
@@ -154,3 +154,8 @@ The three algorithms were tested on all maps. Due to stochastic sampling, multip
   - Rapid feasible solution → Basic RRT / RRT-Connect  
   - Optimal path → RRT* with higher computation  
 - Sample-based planners excel in **complex geometries**, but grid-based planners remain better when **optimality and map knowledge** are priorities.
+
+---
+
+## 🧪 Notes
+
