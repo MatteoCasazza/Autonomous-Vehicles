@@ -96,7 +96,7 @@ The project is organized into multiple MATLAB scripts and a Python ROS2 node, ea
 
 ### MATLAB Scripts
 
-1. **`ass2_classical.m`**  
+1. **`assignment2_classical.m`**  
    - Implements a **classical proportional controller** for navigating through waypoints.  
    - Main functionalities:  
      - Subscribes to `/odom` for robot position and orientation  
@@ -106,7 +106,7 @@ The project is organized into multiple MATLAB scripts and a Python ROS2 node, ea
      - Command saturation and stability logic (rotate first if heading error is too large)  
      - Automatic waypoint switching once position and orientation are within tolerance  
 
-2. **`ass2_NodeWaypoints.m`**  
+2. **`assignment2_NodeWaypoints.m`**  
    - MATLAB controller that **receives waypoints from an external Python server**.  
    - Main functionalities:  
      - Publishes requests on `/wp_request`  
@@ -114,15 +114,15 @@ The project is organized into multiple MATLAB scripts and a Python ROS2 node, ea
      - Executes proportional control similar to `ass2_classical.m`  
      - Maintains a 10 Hz control loop  
 
-3. **`ass2_orientation.m`**  
+3. **`assignment2_orientation.m`**  
    - Variant of the classical controller with **orientation control applied throughout the entire path**.  
    - Uses combined angular errors `α` (heading to waypoint) and `β` (final orientation correction) for smoother and more precise trajectories.  
 
-4. **`ass2_orientation_1M.m`**  
+4. **`assignment2_orientation_1M.m`**  
    - Orientation control is applied **only in the last meter before reaching the waypoint**.  
    - Results in straighter trajectories, shorter travel distance, and reduced mechanical stress on the robot.  
 
-5. **`ass2_stanley.m`**  
+5. **`assignment2_stanley.m`**  
    - Implements the **Stanley controller**, optimized for following segments between consecutive waypoints.  
    - Main functionalities:  
      - Computes lateral (cross-track) and heading errors relative to the line segment  
@@ -132,7 +132,7 @@ The project is organized into multiple MATLAB scripts and a Python ROS2 node, ea
 
 ### Python Script
 
-1. **`ass2_node_py.py`**  
+1. **`assignment2_node_py.py`**  
    - ROS2 Python node serving as a **Waypoint Server**.  
    - Main functionalities:  
      - Subscribes to `/wp_request` for requests from MATLAB  
