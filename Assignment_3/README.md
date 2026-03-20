@@ -73,10 +73,10 @@ Once locked, a **Proportional (P) Controller** computes:
 ---
 
 ## 🧩 Code Structure
-- **`ass_3.m` (MATLAB)**  
+- **`assignment_3.m` (MATLAB)**  
   Prepares the simulation environment in Gazebo, spawns spheres, and initializes ROS2 nodes for the TurtleBot3.
 
-- **`sym_ass3.slx` (Simulink)**  
+- **`sym_assignment3.slx` (Simulink)**  
   - **Camera Detection:** Converts RGB to HSV, extracts centroids, and selects the target sphere.  
   - **LiDAR Estimation:** Computes object position and size from LiDAR scans.  
   - **Feedback & Command Publishing:** Calculates linear/angular velocities and publishes to `/cmd_vel` for autonomous navigation.
