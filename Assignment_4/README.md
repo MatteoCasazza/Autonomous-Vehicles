@@ -71,26 +71,10 @@ This improves path efficiency and allows **8-way movement**.
 C(q') = C(q) + C(q, q') + h(q')
 \]
 - Heuristic types:
-  - **Euclidean:**  
-  $$
-  \sqrt{(x_{\text{goal}} - x)^2 + (y_{\text{goal}} - y)^2}
-  $$
-
-- **Manhattan:**  
-  $$
-  |x_{\text{goal}} - x| + |y_{\text{goal}} - y|
-  $$
-
-- **Chebyshev:**  
-  $$
-  \max\left(|x_{\text{goal}} - x|,\; |y_{\text{goal}} - y|\right)
-  $$
-
-- **Diagonal (8-connectivity):**  
-  $$
-  h(q') = |x_{\text{goal}} - x| + |y_{\text{goal}} - y| + (\sqrt{2} - 2)\,\min\left(|x_{\text{goal}} - x|,\; |y_{\text{goal}} - y|\right)
-  $$
-
+  - **Euclidean:** $\sqrt{(x_{\text{goal}} - x)^2 + (y_{\text{goal}} - y)^2}$  
+  - **Manhattan:** $|x_{\text{goal}} - x| + |y_{\text{goal}} - y|$  
+  - **Chebyshev:** $\max(|x_{\text{goal}} - x|,\; |y_{\text{goal}} - y|)$  
+  - **Diagonal:** $|x_{\text{goal}} - x| + |y_{\text{goal}} - y| + (\sqrt{2}-2)\min(|x_{\text{goal}} - x|,\; |y_{\text{goal}} - y|)$  
 - Only **queue ordering** uses heuristic; node evaluation still uses cost of arrival.
 
 ---
