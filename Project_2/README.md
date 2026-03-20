@@ -118,4 +118,4 @@ The project considers four different start-end pairs, designing paths that are b
 ---
 
 ## 🧪 Notes 
-The ROS2 bag file may not be included due to size constraints but can be provided upon request.
+The ROS2 bag files are not included due to size constraints but can be provided upon request. 
