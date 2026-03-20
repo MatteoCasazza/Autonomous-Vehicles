@@ -157,5 +157,53 @@ The three algorithms were tested on all maps. Due to stochastic sampling, multip
 
 ---
 
-## 🧪 Notes
+## 🧩 Code Structure
+
+The project is organized into multiple MATLAB scripts and functions, each implementing a different variant of the Rapidly-exploring Random Tree (RRT) algorithm and its improvements.
+
+### 📁 Main Scripts
+
+- **`main_RRT.m`**  
+  Implements the **basic RRT algorithm**.  
+  A single tree is grown starting from the initial position using random sampling with goal biasing. The algorithm expands the tree by selecting the nearest node and generating a new node in its direction. Once the goal is reached, the path is reconstructed via backtracking.
+
+- **`main_RRT_conn.m`**  
+  Implements the **RRT-Connect algorithm**.  
+  Two trees are grown simultaneously: one from the start and one from the goal. The trees alternate between expansion and connection attempts, significantly improving convergence speed compared to the basic RRT.
+
+- **`main_RRT_star.m`**  
+  Implements the **RRT\*** algorithm.  
+  In addition to tree expansion, this version introduces cost optimization:
+  - Selection of the best parent node based on minimum cost
+  - Local rewiring to improve path optimality
+  - Optional global rewiring for further optimization  
+  This results in asymptotically optimal paths.
+
+---
+
+### ⚙️ Supporting Functions
+
+- **`parent_function.m`**  
+  Selects the **best parent node** for a newly generated node by minimizing the total path cost within a local neighborhood.
+
+- **`Rewire.m`**  
+  Performs the **rewiring step** in RRT\*.  
+  It checks whether nearby nodes can reduce their cost by changing parent to the newly added node, improving overall path optimality.
+
+---
+
+### 🔄 Core Workflow
+
+All main scripts follow the same high-level pipeline:
+
+1. Load and preprocess the map  
+2. Define start and goal positions  
+3. Initialize tree structure  
+4. Iteratively expand the tree(s) using random sampling  
+5. Check for collision and map boundaries  
+6. (Optional) Optimize the tree (RRT\*)  
+7. Detect goal reach condition  
+8. Reconstruct the path via backtracking  
+9. Compute performance metrics (time, distance, explored nodes)  
+
 
