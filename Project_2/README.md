@@ -117,5 +117,82 @@ The project considers four different start-end pairs, designing paths that are b
 
 ---
 
+## 🧩 Code Structure
+
+The project is divided into two main components:
+
+1. **Global Path Planning (A\*)**
+2. **Trajectory Tracking (Feedback Control with ROS2)**
+
+---
+
+### 📁 Path Planning Module
+
+- **`main_proj2_maps.m`**  
+  Main script for **global path planning** using the A\* algorithm.
+
+  It performs the following steps:
+  - Loads the environment map and converts it into a binary occupancy grid
+  - Builds a **graph representation** of the map using an adjacency list (8-connectivity)
+  - Defines multiple start-goal pairs to generate a complete trajectory
+  - Runs A\* for each pair to compute optimal paths
+  - Concatenates all paths into a global trajectory
+  - Saves the result in `trajectory_data.mat` for later use in control
+
+  The script also generates:
+  - Explored nodes visualization
+  - Optimal trajectories
+  - Performance metrics (distance, explored nodes, execution time)
+
+---
+
+- **`aStar_optimized.m`**  
+  Implementation of the **A\* path planning algorithm**.
+
+  Key features:
+  - Uses a **priority queue** based on cost function \( f = g + h \)
+  - Euclidean distance heuristic
+  - Efficient node exploration with a visited set
+  - Reconstruction of the optimal path using a predecessor vector
+
+  Outputs:
+  - Optimal path
+  - Total distance to goal
+  - Number of explored nodes
+
+---
+
+### 🤖 Trajectory Tracking Module (ROS2)
+
+- **`main_proj2_2LA.m`**  
+  Implements waypoint tracking using a **fixed look-ahead controller**.
+
+  Features:
+  - Loads precomputed trajectory from `trajectory_data.mat`
+  - Connects to ROS2 (`/odom`, `/cmd_vel`)
+  - Tracks waypoints using a **pure pursuit-like control law**
+  - Uses a constant look-ahead distance
+  - Splits the trajectory into multiple segments
+
+---
+
+- **`main_proj2_10LA.m`**  
+  Improved version with **adaptive look-ahead strategy**.
+
+  Enhancements:
+  - Dynamically adjusts look-ahead distance based on path geometry
+  - Detects **straight segments vs curves** using angular variation
+  - Uses:
+    - Larger look-ahead for straight paths → smoother and faster motion  
+    - Smaller look-ahead for curves → better accuracy
+  - Adapts controller gains accordingly
+
+  This results in:
+  - Improved tracking performance
+  - Smoother velocity profiles
+  - Better stability in sharp turns
+
+---
+
 ## 🧪 Notes 
 The ROS2 bag files are not included due to size constraints but can be provided upon request. 
