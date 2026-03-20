@@ -1,6 +1,6 @@
 # Autonomous Vehicles Projects
 
-This repository presents hands-on implementations of core algorithms used in autonomous driving systems, developed through a series of assignments and projects. For more information about all the work, take a look to the report []() 
+This repository presents hands-on implementations of core algorithms used in autonomous driving systems, developed through a series of assignments and projects. For more information about all the work, take a look to the report [Autonomous_Vehicles_report.pdf](Autonomous_Vehicles_report.pdf) 
 
 ## 📌 Overview
 The work covers the main components of autonomous navigation:
