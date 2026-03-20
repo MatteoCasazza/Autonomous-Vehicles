@@ -81,7 +81,7 @@ The implementation of this assignment is organized into multiple scripts, each r
 
 ### 1. Data Processing and Control Reconstruction
 
-**`ass1_def.m` (MATLAB)**  
+**`assignment1_def.m` (MATLAB)**  
 Main script for trajectory reconstruction and control estimation. It:  
 - Loads odometry data extracted from the ROS2 bag  
 - Computes linear and angular velocities  
@@ -91,7 +91,7 @@ Main script for trajectory reconstruction and control estimation. It:
 - Interpolates the control sequence to 10 Hz  
 - Publishes `/cmd_vel` commands using a ROS2 MATLAB node  
 
-**`ass1_py.py` (Python)**  
+**`assignment1_py.py` (Python)**  
 Python implementation of the same pipeline with improved timing consistency. It:  
 - Loads `.mat` data  
 - Computes and filters velocities  
@@ -128,8 +128,8 @@ The original dataset is provided as a ROS2 bag containing all recorded topics us
 
 ## How to Run
 
-1. Run `ass1_def.m` (MATLAB)  
-2. Run `ass1_py.py` (Python)  
+1. Run `assignment1_def.m` (MATLAB)  
+2. Run `assignment1_py.py` (Python)  
 3. Run `scan_robot.m` (MATLAB)  
 ---
 
