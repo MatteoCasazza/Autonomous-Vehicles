@@ -36,9 +36,20 @@ The project considers four different start-end pairs, designing paths that are b
 - A modified **A\*** algorithm is applied to handle large maps.  
 - The adjacency matrix is replaced by a **neighbor list** of free pixels.  
 - Cost calculation:  
-  - Step cost: \( C(q, q′) = \sqrt{(q_x - q'_x)^2 + (q_y - q'_y)^2} \)  
-  - Total cost to reach node: \( C(q′) = C(q) + C(q, q′) \)  
-  - Heuristic (Euclidean distance to goal): \( h(q′) = \sqrt{(x_p - x_g)^2 + (y_p - y_g)^2} \)  
+ - **Step cost:**
+  $$
+  C(q, q') = \sqrt{(q_x - q'_x)^2 + (q_y - q'_y)^2}
+  $$
+
+- **Total cost to reach a node:**
+  $$
+  C(q') = C(q) + C(q, q')
+  $$
+
+- **Heuristic (Euclidean distance to goal):**
+  $$
+  h(q') = \sqrt{(x_p - x_g)^2 + (y_p - y_g)^2}
+  $$
 
 - Trajectories are constructed by backtracking from the goal to the start.  
 - Start coordinates are mapped to the environment origin, and each step is scaled according to map resolution.
